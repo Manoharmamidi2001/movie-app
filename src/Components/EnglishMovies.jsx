@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { fetchActionMovies } from "../Api";
+import { fetchEnglishMovies } from "../Api";
 import MovieCard from "./MovieCard";
 import Slider from "react-slick";
+import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaArrowRight } from "react-icons/fa";
 
-const ActionMovies = () => {
-  const [actionMovies, setActionMovies] = useState([]);
+const EnglishMovies = () => {
+  const [englishMovies, setEnglishMovies] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMovies = async () => {
-      const data = await fetchActionMovies();
-      setActionMovies(data);
+      const data = await fetchEnglishMovies();
+      setEnglishMovies(data);
     };
     getMovies();
   }, []);
@@ -25,7 +27,7 @@ const ActionMovies = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    arrows: false, // Removed left and right arrows
+    arrows: false,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 4 } },
       { breakpoint: 768, settings: { slidesToShow: 2 } },
@@ -35,20 +37,23 @@ const ActionMovies = () => {
 
   return (
     <div>
+      {/* Title & View All Button in a flex row */}
       <div className="title-container">
-              <h1 className="title">ACTION MOVIES</h1>
-              <button className="view-all-btn">
-                View All <FaArrowRight />
-              </button>
-            </div>
+        <h1 className="title">ENGLISH MOVIES</h1>
+        <button className="view-all-btn">
+          View All <FaArrowRight />
+        </button>
+      </div>
+
       <div className="movies-slider">
         <Slider {...settings}>
-          {actionMovies.map((movie) => (
+          {englishMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </Slider>
-      </div>
+      </div>      
     </div>
   );
-}
-export default ActionMovies;
+};
+
+export default EnglishMovies;

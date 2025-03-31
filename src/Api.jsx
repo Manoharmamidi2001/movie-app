@@ -92,3 +92,51 @@ export const fetchActionMovies = async () => {
     return [];
   }
 };
+
+// Fetch Telugu Movies
+export const fetchTeluguMovies = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/movie`, {
+      params: {
+        api_key: API_KEY,
+        with_original_language: "te", // Telugu language code
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Telugu movies:", error);
+    return [];
+  }
+};
+
+// Fetch Hindi Movies
+export const fetchHindiMovies = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/movie`, {
+      params: {
+        api_key: API_KEY,
+        with_original_language: "hi", // Hindi language code
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Hindi movies:", error);
+    return [];
+  }
+};
+
+// Fetch English Movies
+export const fetchEnglishMovies = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/movie`, {
+      params: {
+        api_key: API_KEY,
+        with_original_language: "en", // English language code
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching English movies:", error);
+    return [];
+  }
+};

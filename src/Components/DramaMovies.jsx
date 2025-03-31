@@ -4,6 +4,7 @@ import MovieCard from "./MovieCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaArrowRight } from "react-icons/fa";
 
 const DramaMovies = () => {
   const [dramaMovies, setDramaMovies] = useState([]);
@@ -34,19 +35,12 @@ const DramaMovies = () => {
 
   return (
     <div>
-    <h1
-        className="title"
-        style={{
-          fontWeight: "bold",
-          background: "rgba(0, 0, 0, 0.7)", // Transparent black background
-          color: "white",
-          padding: "10px",
-          display: "inline-block", // Fit the text size
-          width:'500px'
-        }}
-      >
-        DRAMA
-      </h1>
+    <div className="title-container">
+            <h1 className="title">DRAMA MOVIES</h1>
+            <button className="view-all-btn">
+              View All <FaArrowRight />
+            </button>
+    </div>
       <div className="movies-slider">
         <Slider {...settings}>
           {dramaMovies.map((movie) => (

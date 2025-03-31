@@ -4,6 +4,7 @@ import MovieCard from "./MovieCard"; // Reuse MovieCard for TV shows
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaArrowRight } from "react-icons/fa";
 
 const TVShows = () => {
   const [tvShows, setTVShows] = useState([]);
@@ -34,7 +35,12 @@ const TVShows = () => {
 
   return (
     <div>
-      <h1 className="title" style={{fontWeight:'bold'}}>TV SHOWS</h1>
+      <div className="title-container">
+              <h1 className="title">TV Shows</h1>
+              <button className="view-all-btn">
+                View All <FaArrowRight />
+              </button>
+        </div>
       <div className="movies-slider">
         <Slider {...settings}>
           {tvShows.map((show) => (

@@ -12,6 +12,10 @@ import LanguageSlider from "../Components/LanguageSlider";
 import TVShows from "../Components/TVShows";
 import HorrorMovies from "../Components/HorrorMovies";
 import ActionMovies from '../Components/ActionMovies'
+import TeluguMovies from "../Components/TeluguMovies";
+import { FaArrowRight } from "react-icons/fa";
+import HindiMovies from "../Components/HindiMovies";
+import EnglishMovies from "../Components/EnglishMovies";
 
 const Dashboard = () => {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -51,7 +55,12 @@ const Dashboard = () => {
       <HeroCarousel heroMovies={heroMovies} />
 
       {/* Popular Movies Section */}
-      <h1 className="title" style={{fontWeight:'bold'}}>POPULAR</h1>
+      <div className="title-container">
+              <h1 className="title">POPULAR MOVIES</h1>
+              <button className="view-all-btn">
+                View All <FaArrowRight />
+              </button>
+            </div>
       <div className="movies-slider">
         <Slider {...settings}>
           {popularMovies.map((movie) => (
@@ -67,6 +76,9 @@ const Dashboard = () => {
       <ActionMovies/>
       <LanguageSlider onSelectLanguage={setSelectedLanguage} />
       <TVShows/>
+      <TeluguMovies/>
+      <HindiMovies/>
+      <EnglishMovies/>
     </div>
   );
 };

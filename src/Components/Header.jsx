@@ -5,9 +5,12 @@ const Header = () => {
   return (
     <div className="header">
       <div className="categories">
-        <button>Telugu</button>
-        <button>Hindi</button>
-        <button>English</button>
+        <button>Home</button>
+        <button>Movies</button>
+        <button>Tv Shows</button>
+        <button>Live</button>
+        <button>News</button>
+        <button>Sports</button>
       </div>
       <FaUserCircle className="profile-icon" />
     </div>
