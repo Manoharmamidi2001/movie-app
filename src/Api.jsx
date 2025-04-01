@@ -212,13 +212,7 @@ export const fetchHeroMovies = async () => {
 };
 
 export const fetchGenres = async () => {
-  try {
-    const response = await axios.get(`${BASE_URL}/genre/movie/list`, {
-      params: { api_key: API_KEY },
-    });
-    return response.data.genres; // Returns genres with ids and names
-  } catch (error) {
-    console.error("Error fetching genres:", error);
-    return [];
-  }
+  const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`);
+  const data = await response.json();
+  return data.genres; // This returns the genre list [{ id, name }, { id, name }, ...]
 };

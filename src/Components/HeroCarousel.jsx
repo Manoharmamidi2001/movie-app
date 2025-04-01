@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
-import { fetchHeroMovies } from "../Api"; // Import the fetch function
+import { fetchGenres, fetchHeroMovies } from "../Api"; // Import the fetch function
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -8,6 +8,7 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
 
 const HeroCarousel = () => {
   const [heroMovies, setHeroMovies] = useState([]); // State for storing fetched movies
+  const [genres, setGenres] = useState([]); // State for storing genres
 
   // Fetch Hero Movies on Component Mount
   useEffect(() => {
@@ -17,6 +18,30 @@ const HeroCarousel = () => {
     };
     getHeroMovies();
   }, []);
+
+  // Fetch Genres on Component Mount
+  useEffect(() => {
+    const getGenres = async () => {
+      const genre = await fetchGenres(); // Fetch genres
+      setGenres(genre); // Set genres in the state
+    };
+    getGenres();
+  }, []);
+
+  // Function to get genre names from genre IDs
+  const getGenreNames = (genreIds) => {
+    if (!genres || genres.length === 0) {
+      return "Loading genres..."; // Fallback text while genres are loading
+    }
+
+    return genreIds
+      .map((id) => {
+        const genre = genres.find((genre) => genre.id === id);
+        return genre ? genre.name : null; // Return genre name or null if not found
+      })
+      .filter(Boolean) // Filter out null values
+      .join(", "); // Join genre names with commas
+  };
 
   const heroSettings = {
     dots: true,
@@ -45,14 +70,10 @@ const HeroCarousel = () => {
               {/* Movie Details */}
               <div className="hero-details">
                 <div className="hero-detail">
-                  <strong>⭐ Rating:</strong> {movie.vote_average} / 10
+                  <strong>⭐ Rating:</strong> {movie.vote_average.toFixed(1)} / 10
                 </div>
                 <div className="hero-detail">
-                  <strong>🎭 Genres:</strong>{" "}
-                  {movie.genre_ids?.map((genreId) => {
-                    // Map genre IDs to genre names if needed
-                    return genreId; // Replace with real genre names if available
-                  }).join(", ")}
+                  <strong>🎭 Genres:</strong> {getGenreNames(movie.genre_ids)} {/* Displaying genres */}
                 </div>
                 <div className="hero-detail">
                   <strong>🌍 Languages:</strong>{" "}
