@@ -51,7 +51,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard" style={{background:'linear-gradient(74deg, rgba(58,168,170,1) 20%, rgba(0,232,249,1) 50%, rgba(219,248,255,1) 80%)'}}>
+    <div className="dashboard" style={{background: 'linear-gradient(0deg, rgba(64,210,222,1) 18%, rgba(255,149,149,1) 50%, rgba(246,87,79,1) 80%)'}}>
       <Header />
 
       {/* Hero Carousel Component */}

@@ -78,13 +78,11 @@ body, html {
     position: relative;
     width: 200px;
     cursor: pointer;
-    border-radius: 10px;
     overflow: hidden;
     text-align: center; /* Ensures the title aligns properly */
 }
 .movie-card img {
     width: 100%;
-    border-radius: 10px;
     transition: transform 0.3s ease-in-out;
 }
 .movie-card h3 {
