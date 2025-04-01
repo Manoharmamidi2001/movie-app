@@ -16,6 +16,9 @@ import TeluguMovies from "../Components/TeluguMovies";
 import { FaArrowRight } from "react-icons/fa";
 import HindiMovies from "../Components/HindiMovies";
 import EnglishMovies from "../Components/EnglishMovies";
+import TamilMovies from "../Components/TamilMovies";
+import MalayalamMovies from "../Components/MalayalamMovies";
+import KannadaMovies from "../Components/KannadaMovies";
 
 const Dashboard = () => {
   const [popularMovies, setPopularMovies] = useState([]);
@@ -75,10 +78,13 @@ const Dashboard = () => {
       <HorrorMovies/>
       <ActionMovies/>
       <LanguageSlider onSelectLanguage={setSelectedLanguage} />
-      <TVShows/>
       <TeluguMovies/>
       <HindiMovies/>
       <EnglishMovies/>
+      <TamilMovies/>
+      <MalayalamMovies/>
+      <KannadaMovies/>
+      <TVShows/>
     </div>
   );
 };

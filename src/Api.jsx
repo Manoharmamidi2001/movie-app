@@ -1,13 +1,14 @@
 import axios from "axios";
 
 const API_KEY = "f593c93464978e5aa75c9d034b9519ce";
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL = "http://api.themoviedb.org/3";
+
 
 // Fetch Popular Movies
 export const fetchPopularMovies = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/movie/popular`, {
-      params: { api_key: API_KEY },
+      params: { api_key: API_KEY }
     });
     return response.data.results;
   } catch (error) {
@@ -137,6 +138,87 @@ export const fetchEnglishMovies = async () => {
     return response.data.results;
   } catch (error) {
     console.error("Error fetching English movies:", error);
+    return [];
+  }
+};
+
+// Fetch Tamil Movies
+export const fetchTamilMovies = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/movie`, {
+      params: {
+        api_key: API_KEY,
+        with_original_language: "ta", // Tamil language code
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Tamil movies:", error);
+    return [];
+  }
+};
+
+// Fetch Malayalam Movies
+export const fetchMalayalamMovies = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/movie`, {
+      params: {
+        api_key: API_KEY,
+        with_original_language: "ml", // Malayalam language code
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Malayalam movies:", error);
+    return [];
+  }
+};
+
+// Fetch Kannada Movies
+export const fetchKannadaMovies = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/discover/movie`, {
+      params: {
+        api_key: API_KEY,
+        with_original_language: "kn", // Kannada language code
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Kannada movies:", error);
+    return [];
+  }
+};
+
+export const fetchHeroMovies = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US`);
+    const data = await response.json();
+
+    // Fetch additional details for each movie
+    const detailedMovies = await Promise.all(
+      data.results.map(async (movie) => {
+        const detailsResponse = await fetch(`${BASE_URL}/movie/${movie.id}?api_key=${API_KEY}&language=en-US`);
+        const details = await detailsResponse.json();
+        return { ...movie, ...details };
+      })
+    );
+
+    return detailedMovies;
+  } catch (error) {
+    console.error("Error fetching hero movies:", error);
+    return [];
+  }
+};
+
+export const fetchGenres = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/genre/movie/list`, {
+      params: { api_key: API_KEY },
+    });
+    return response.data.genres; // Returns genres with ids and names
+  } catch (error) {
+    console.error("Error fetching genres:", error);
     return [];
   }
 };

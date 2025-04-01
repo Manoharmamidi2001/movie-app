@@ -95,17 +95,49 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #ffffff;
     padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Start with semi-transparent background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the header stays on top of other content */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Animation for sliding and fading in the header */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px); /* Slide from top */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Slide to its original position */
+    }
+}
+
+body {
+    padding-top: 60px; /* Adjust based on the height of the fixed header */
+}
+
+/* Optional: Add animation for header when it becomes transparent */
+@keyframes fadeInHeader {
+    0% {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 1);
+    }
 }
 
 .categories button {
     background: none;
     border: none;
-    color: rgb(0, 0, 0);
     font-size: 16px;
     margin: 0 10px;
     cursor: pointer;
+    color: white;
 }
 
 .categories button:hover {
@@ -115,6 +147,7 @@ body, html {
 .profile-icon {
     font-size: 30px;
     cursor: pointer;
+    color: white;
 }
     
 .movies-slider {
@@ -171,6 +204,7 @@ body, html {
     width: 100%;
     position: relative;
     margin-bottom: 20px;
+    height: 450px;
     overflow: hidden;
 }
 
@@ -189,10 +223,17 @@ body, html {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    width: 50%;
+    background: rgba(0, 0, 0, 0.7);
     padding: 20px;
-    text-align: center;
+    text-align: left;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensure all content is aligned at the top */
+    height: 60%;
+    transition: all 0.3s ease-in-out;
+    border-top-right-radius: 50px;
 }
 .hero-overlay h2 {
     color: white;
@@ -255,3 +296,42 @@ body, html {
     background: rgb(255, 255, 255);
     color: black;
   }
+
+  .hero-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .hero-description {
+    font-size: 16px;
+    max-width: 100%;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+.hero-details {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .hero-detail {
+    margin-bottom: 10px; /* Adds spacing between each item */
+  }
+
+  .hero-overlay h2,
+.hero-overlay p,
+.hero-overlay .hero-detail {
+  margin: 0;
+  padding: 0;
+}
+
+.hero-detail strong {
+  color: #fff;
+}
+
+.hero-slider .slick-dots {
+  bottom: 10px; /* Position the dots closer to the bottom */
+}
