@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { fetchTeluguMovies } from "../Api";
 import MovieCard from "./MovieCard";
 import Slider from "react-slick";
-import { FaArrowRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa"; // Updated icons
 
 const TeluguMovies = () => {
   const [teluguMovies, setTeluguMovies] = useState([]);
-  const navigate = useNavigate();
+  const [showAll, setShowAll] = useState(false); // Toggle between slider & full list
 
   useEffect(() => {
     const getMovies = async () => {
@@ -35,23 +34,42 @@ const TeluguMovies = () => {
     ],
   };
 
+  const handleViewAllClick = () => {
+    setShowAll(!showAll);
+  };
+
   return (
     <div>
-      {/* Title & View All Button in a flex row */}
       <div className="title-container">
         <h1 className="title">TELUGU MOVIES</h1>
-        <button className="view-all-btn">
-          View All <FaArrowRight />
+        <button className="view-all-btn" onClick={handleViewAllClick}>
+          {showAll ? (
+            <>
+              Hide All <FaArrowUp /> {/* Up arrow when expanded */}
+            </>
+          ) : (
+            <>
+              View All <FaArrowDown /> {/* Down arrow when collapsed */}
+            </>
+          )}
         </button>
       </div>
 
-      <div className="movies-slider">
-        <Slider {...settings}>
+      {!showAll ? (
+        <div className="movies-slider">
+          <Slider {...settings}>
+            {teluguMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        <div className="movie-list">
           {teluguMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
-        </Slider>
-      </div>      
+        </div>
+      )}
     </div>
   );
 };

@@ -4,10 +4,11 @@ import MovieCard from "./MovieCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa"; // For up arrow
 
 const ComedyMovies = () => {
   const [comedyMovies, setComedyMovies] = useState([]);
+  const [showAll, setShowAll] = useState(false); // Track if View All is clicked
 
   useEffect(() => {
     const getMovies = async () => {
@@ -25,7 +26,7 @@ const ComedyMovies = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    arrows: false, // Remove left and right arrows
+    arrows: false, // Remove left and DownFaArrowDown arrows
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 4 } },
       { breakpoint: 768, settings: { slidesToShow: 2 } },
@@ -33,21 +34,40 @@ const ComedyMovies = () => {
     ],
   };
 
+  const handleViewAllClick = () => {
+    setShowAll(!showAll); // Toggle the View All state
+  };
+
   return (
     <div>
       <div className="title-container">
-              <h1 className="title">COMEDY MOVIES</h1>
-              <button className="view-all-btn">
-                View All <FaArrowRight />
-              </button>
-            </div>
-      <div className="movies-slider">
-        <Slider {...settings}>
+        <h1 className="title">COMEDY MOVIES</h1>
+        <button className="view-all-btn" onClick={handleViewAllClick}>
+          {showAll ? (
+            <>Hide All<FaArrowUp /></> // Show up arrow when movies are expanded
+          ) : (
+            <>View All <FaArrowDown /></> // Show DownFaArrowDown arrow when movies are collapsed
+          )}
+        </button>
+      </div>
+
+      {/* Show slider if "View All" is not clicked */}
+      {!showAll ? (
+        <div className="movies-slider">
+          <Slider {...settings}>
+            {comedyMovies.slice(0, 5).map((movie) => ( // Display only top 5 movies
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        // Show all comedy movies if "View All" is clicked
+        <div className="movie-list">
           {comedyMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
-        </Slider>
-      </div>
+        </div>
+      )}
     </div>
   );
 };

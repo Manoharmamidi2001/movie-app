@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { fetchHindiMovies } from "../Api";
+import { fetchPopularMovies } from "../Api";
 import MovieCard from "./MovieCard";
 import Slider from "react-slick";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa"; // Down arrow added
-import { useNavigate } from "react-router-dom";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa"; // Added FaArrowUp
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const HindiMovies = () => {
-  const [hindiMovies, setHindiMovies] = useState([]);
-  const [showAll, setShowAll] = useState(false); // Toggle between slider & full list
-  const navigate = useNavigate();
+const PopularMovies = () => {
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [showAll, setShowAll] = useState(false); // State to toggle between showing all or slider
 
   useEffect(() => {
     const getMovies = async () => {
-      const data = await fetchHindiMovies();
-      setHindiMovies(data);
+      const data = await fetchPopularMovies();
+      setPopularMovies(data);
     };
     getMovies();
   }, []);
@@ -28,7 +26,7 @@ const HindiMovies = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    arrows: false, // No left/right arrows
+    arrows: false, // Remove left and DowFaArrowDown arrows
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 4 } },
       { breakpoint: 768, settings: { slidesToShow: 2 } },
@@ -42,34 +40,34 @@ const HindiMovies = () => {
 
   return (
     <div>
-      {/* Title & View All Button */}
+      {/* Popular Movies Section */}
       <div className="title-container">
-        <h1 className="title">HINDI MOVIES</h1>
+        <h1 className="title">POPULAR MOVIES</h1>
         <button className="view-all-btn" onClick={handleViewAllClick}>
           {showAll ? (
             <>
-              Hide All <FaArrowUp /> {/* Up arrow when showing all movies */}
+              Hide All <FaArrowUp /> {/* Arrow pointing up when showing all movies */}
             </>
           ) : (
             <>
-              View All <FaArrowDown /> {/* Down arrow when collapsed */}
+              View All <FaArrowDown /> {/* Arrow pointing DowFaArrowDown initially */}
             </>
           )}
         </button>
       </div>
 
-      {/* Toggle between slider and full list */}
+      {/* Show slider or all movies based on showAll state */}
       {!showAll ? (
         <div className="movies-slider">
           <Slider {...settings}>
-            {hindiMovies.map((movie) => (
+            {popularMovies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </Slider>
         </div>
       ) : (
         <div className="movie-list">
-          {hindiMovies.map((movie) => (
+          {popularMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
@@ -78,4 +76,4 @@ const HindiMovies = () => {
   );
 };
 
-export default HindiMovies;
+export default PopularMovies;

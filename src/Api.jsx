@@ -216,3 +216,16 @@ export const fetchGenres = async () => {
   const data = await response.json();
   return data.genres; // This returns the genre list [{ id, name }, { id, name }, ...]
 };
+
+
+export const fetchMovies = async () => {
+  const response = await fetch("https://api.example.com/movies"); // Replace with actual API URL
+  const data = await response.json();
+  return data.map((movie) => ({
+    id: movie.id,
+    title: movie.title,
+    poster: movie.poster,
+    trailer: movie.trailer, // Ensure trailer URL is fetched
+    genre: movie.genre,
+  }));
+};

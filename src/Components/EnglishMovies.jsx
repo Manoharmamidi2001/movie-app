@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { fetchEnglishMovies } from "../Api";
 import MovieCard from "./MovieCard";
 import Slider from "react-slick";
-import { FaArrowRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa"; // Added FaArrowUp for "Hide All" arrow
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const EnglishMovies = () => {
   const [englishMovies, setEnglishMovies] = useState([]);
-  const navigate = useNavigate();
+  const [showAll, setShowAll] = useState(false); // State to toggle between showing all or slider
 
   useEffect(() => {
     const getMovies = async () => {
@@ -35,23 +34,44 @@ const EnglishMovies = () => {
     ],
   };
 
+  const handleViewAllClick = () => {
+    setShowAll(!showAll);
+  };
+
   return (
     <div>
-      {/* Title & View All Button in a flex row */}
+      {/* English Movies Section */}
       <div className="title-container">
         <h1 className="title">ENGLISH MOVIES</h1>
-        <button className="view-all-btn">
-          View All <FaArrowRight />
+        <button className="view-all-btn" onClick={handleViewAllClick}>
+          {showAll ? (
+            <>
+              Hide All <FaArrowUp /> {/* Arrow pointing up when showing all movies */}
+            </>
+          ) : (
+            <>
+              View All <FaArrowDown /> {/* Arrow pointing DownFaArrowDown initially */}
+            </>
+          )}
         </button>
       </div>
 
-      <div className="movies-slider">
-        <Slider {...settings}>
+      {/* Show slider or all movies based on showAll state */}
+      {!showAll ? (
+        <div className="movies-slider">
+          <Slider {...settings}>
+            {englishMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        <div className="movie-list">
           {englishMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
-        </Slider>
-      </div>      
+        </div>
+      )}
     </div>
   );
 };

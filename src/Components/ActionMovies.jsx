@@ -4,10 +4,12 @@ import MovieCard from "./MovieCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import AllActionMovies from "./AllActionMovies"; // Import the AllActionMovies component
 
 const ActionMovies = () => {
   const [actionMovies, setActionMovies] = useState([]);
+  const [viewAll, setViewAll] = useState(false); // State to toggle view all movies
 
   useEffect(() => {
     const getMovies = async () => {
@@ -36,19 +38,33 @@ const ActionMovies = () => {
   return (
     <div>
       <div className="title-container">
-              <h1 className="title">ACTION MOVIES</h1>
-              <button className="view-all-btn">
-                View All <FaArrowRight />
-              </button>
-            </div>
-      <div className="movies-slider">
-        <Slider {...settings}>
-          {actionMovies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
-        </Slider>
+        <h1 className="title">ACTION MOVIES</h1>
+        {!viewAll && (
+          <button className="view-all-btn" onClick={() => setViewAll(true)}>
+            View All <FaArrowDown />
+          </button>
+        )}
+
+        {viewAll && (
+          <button className="view-all-btn" onClick={() => setViewAll(false)}>
+            <FaArrowUp /> Hide
+          </button>
+        )}
       </div>
+
+      {viewAll ? (
+        <AllActionMovies /> // Show all movies when View All is clicked
+      ) : (
+        <div className="movies-slider">
+          <Slider {...settings}>
+            {actionMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </Slider>
+        </div>
+      )}
     </div>
   );
-}
+};
+
 export default ActionMovies;

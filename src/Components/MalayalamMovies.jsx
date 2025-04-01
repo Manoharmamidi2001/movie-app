@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { fetchMalayalamMovies } from "../Api";
 import MovieCard from "./MovieCard";
 import Slider from "react-slick";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa"; // Updated icons
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaArrowRight } from "react-icons/fa";
 
 const MalayalamMovies = () => {
   const [malayalamMovies, setMalayalamMovies] = useState([]);
+  const [showAll, setShowAll] = useState(false); // Toggle between slider & full list
 
   useEffect(() => {
     const getMovies = async () => {
@@ -33,21 +34,42 @@ const MalayalamMovies = () => {
     ],
   };
 
+  const handleViewAllClick = () => {
+    setShowAll(!showAll);
+  };
+
   return (
     <div>
       <div className="title-container">
         <h1 className="title">MALAYALAM MOVIES</h1>
-        <button className="view-all-btn">
-          View All <FaArrowRight />
+        <button className="view-all-btn" onClick={handleViewAllClick}>
+          {showAll ? (
+            <>
+              Hide All <FaArrowUp /> {/* Up arrow when expanded */}
+            </>
+          ) : (
+            <>
+              View All <FaArrowDown /> {/* Down arrow when collapsed */}
+            </>
+          )}
         </button>
       </div>
-      <div className="movies-slider">
-        <Slider {...settings}>
+
+      {!showAll ? (
+        <div className="movies-slider">
+          <Slider {...settings}>
+            {malayalamMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        <div className="movie-list">
           {malayalamMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
-        </Slider>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
