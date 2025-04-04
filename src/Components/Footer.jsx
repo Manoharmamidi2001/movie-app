@@ -40,7 +40,7 @@ const Footer = () => {
 
       {/* Copyright Section */}
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} MovieHub. All Rights Reserved.</p>
+        <p>© {new Date().getFullYear()} Manohar@Mamidi. All Rights Reserved.</p>
       </div>
     </footer>
   );
