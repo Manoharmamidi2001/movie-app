@@ -20,7 +20,7 @@ import Footer from "../Components/Footer";
 
 const Dashboard = () => {
   return (
-    <div className="dashboard" style={{background: 'linear-gradient(0deg, rgb(0, 140, 255) 18%, rgb(249, 119, 119) 50%, rgb(63, 49, 255) 80%)'}}>
+    <div className="dashboard" style={{background:'linear-gradient(90deg, rgba(73,73,72,1) 0%, rgba(94,89,80,1) 50%, rgba(89,88,86,1) 100%)'}}>
       <Header />
 
       {/* Hero Carousel Component */}

@@ -104,7 +104,7 @@ body, html {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background-color: rgba(0, 0, 0, 0.5); /* Start with semi-transparent background */
+    background-color: rgba(84, 113, 255, 0.471); /* Start with semi-transparent background */
     position: fixed;
     top: 0;
     left: 0;
